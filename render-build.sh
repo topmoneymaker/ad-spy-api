@@ -2,6 +2,10 @@
 mkdir -p /opt/render/chrome
 cd /opt/render/chrome
 
+# Install dependencies explicitly
+pip install --upgrade pip
+pip install -r /opt/render/project/src/requirements.txt
+
 # Download Portable Google Chrome
 wget -q -O google-chrome-stable "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64"
 chmod +x google-chrome-stable
