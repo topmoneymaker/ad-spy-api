@@ -2,16 +2,16 @@
 mkdir -p /opt/render/chrome
 cd /opt/render/chrome
 
-# Install dependencies explicitly
+# Install dependencies
 pip install --upgrade pip
 pip install -r /opt/render/project/src/requirements.txt
 
-# Download Portable Google Chrome
-wget -q -O google-chrome-stable "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64"
-chmod +x google-chrome-stable
+# Download and install Google Chrome
+wget -q -O google-chrome-stable "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+dpkg -i google-chrome-stable || apt-get install -f -y
 
 # Verify Chrome installation
-./google-chrome-stable --version || echo "Chrome installation failed"
+google-chrome --version || echo "Chrome installation failed"
 
 # Install a specific version of Chromedriver for Linux
 CHROMEDRIVER_VERSION="114.0.5735.90"
