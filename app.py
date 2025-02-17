@@ -10,7 +10,7 @@ def scrape_facebook_ads(keyword):
     """Scrapes Facebook Ad Library for ads based on the given keyword."""
 
     # Paths for Chrome and Chromedriver
-    CHROME_PATH = "/opt/render/chrome/chrome-linux/chrome"
+    CHROME_PATH = "/opt/render/chrome/opt/google/chrome/google-chrome"
     CHROMEDRIVER_PATH = "/opt/render/chrome/chromedriver"
 
     # Ensure Chromedriver exists
