@@ -1,22 +1,26 @@
 # Ensure directory exists
 mkdir -p /opt/render/chrome
+cd /opt/render/chrome
 
 # Download Portable Google Chrome
-wget -q -O /opt/render/chrome/google-chrome-stable "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64"
-chmod +x /opt/render/chrome/google-chrome-stable
+wget -q -O google-chrome-stable "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64"
+chmod +x google-chrome-stable
 
-# Install Chromedriver
+# Verify Chrome installation
+./google-chrome-stable --version || echo "Chrome installation failed"
+
+# Install a specific version of Chromedriver for Linux
 CHROMEDRIVER_VERSION="114.0.5735.90"
-wget -q -O /opt/render/chrome/chromedriver "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
+wget -q -O chromedriver.zip "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
 
-# Extract and set permissions
-if [ -s /opt/render/chrome/chromedriver ]; then
-    unzip /opt/render/chrome/chromedriver -d /opt/render/chrome/
+# Ensure Chromedriver is extracted correctly
+if [ -s chromedriver.zip ]; then
+    unzip chromedriver.zip
+    mv chromedriver /opt/render/chrome/chromedriver
     chmod +x /opt/render/chrome/chromedriver
 else
     echo "Chromedriver download failed"
 fi
 
-# Verify installations
-/opt/render/chrome/google-chrome-stable --version || echo "Chrome installation failed"
+# Verify Chromedriver installation
 /opt/render/chrome/chromedriver --version || echo "Chromedriver installation failed"
