@@ -11,11 +11,10 @@ def scrape_facebook_ads(keyword):
 
     # Paths for Chrome and Chromedriver
     CHROME_PATH = "/opt/render/chrome/opt/google/chrome/google-chrome"
-    CHROMEDRIVER_PATH = "/opt/render/chrome/chromedriver"
-
-    # Ensure Chromedriver exists
-    if not os.path.exists(CHROMEDRIVER_PATH):
-        return {"error": "Chromedriver not found"}
+    import os
+CHROMEDRIVER_PATH = "/opt/render/chrome/chromedriver"
+if not os.path.exists(CHROMEDRIVER_PATH):
+    raise FileNotFoundError("Chromedriver not found at path: " + CHROMEDRIVER_PATH)
 
     options = webdriver.ChromeOptions()
     options.binary_location = CHROME_PATH
