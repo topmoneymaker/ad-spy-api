@@ -1,27 +1,28 @@
 from flask import Flask, request, jsonify
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
 import os
 import time
 
 app = Flask(__name__)
 
-def scrape_facebook_ads(keyword):
-    """Scrapes Facebook Ad Library for ads based on the given keyword."""
-
-    # Paths for Chrome and Chromedriver
-    CHROME_PATH = "/opt/render/chrome/opt/google/chrome/google-chrome"
+# Ensure Chromedriver exists before running the script
+CHROME_PATH = "/opt/render/chrome/opt/google/chrome/google-chrome"
 CHROMEDRIVER_PATH = "/opt/render/chrome/chromedriver"
-# Ensure Chromedriver exists before the function is called
+
 if not os.path.exists(CHROMEDRIVER_PATH):
     raise FileNotFoundError(f"Chromedriver not found at path: {CHROMEDRIVER_PATH}")
 
-options = webdriver.ChromeOptions()  # ✅ Now correctly positioned
-options.binary_location = CHROME_PATH
-options.add_argument("--headless")
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
-options.add_argument("--disable-gpu")
+def scrape_facebook_ads(keyword):
+    """Scrapes Facebook Ad Library for ads based on the given keyword."""
+
+    options = webdriver.ChromeOptions()
+    options.binary_location = CHROME_PATH
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
 
     driver = webdriver.Chrome(service=Service(CHROMEDRIVER_PATH), options=options)
 
@@ -30,17 +31,19 @@ options.add_argument("--disable-gpu")
     time.sleep(5)
 
     ads_data = []
-    ads = driver.find_elements("class name", "x1rg5ohu")
-
-    for ad in ads[:10]:
-        try:
-            ad_text = ad.text
-            ads_data.append({"ad_text": ad_text})
-        except:
-            continue
+    try:
+        ads = driver.find_elements(By.CLASS_NAME, "x1rg5ohu")
+        for ad in ads[:10]:
+            try:
+                ad_text = ad.text
+                ads_data.append({"ad_text": ad_text})
+            except:
+                continue
+    except Exception as e:
+        print("Error finding ads:", str(e))
 
     driver.quit()
-    return ads_data
+    return ads_data  # ✅ Always returns a list
 
 @app.route('/get_ads', methods=['GET'])
 def get_ads():
@@ -51,4 +54,4 @@ def get_ads():
     return jsonify({"error": "No keyword provided"})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000, debug=True)
+    app.run(host="0.0.0.0", port=10000)
