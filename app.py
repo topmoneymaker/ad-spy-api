@@ -11,17 +11,17 @@ def scrape_facebook_ads(keyword):
 
     # Paths for Chrome and Chromedriver
     CHROME_PATH = "/opt/render/chrome/opt/google/chrome/google-chrome"
-    import os
 CHROMEDRIVER_PATH = "/opt/render/chrome/chromedriver"
+# Ensure Chromedriver exists before the function is called
 if not os.path.exists(CHROMEDRIVER_PATH):
-    raise FileNotFoundError("Chromedriver not found at path: " + CHROMEDRIVER_PATH)
+    raise FileNotFoundError(f"Chromedriver not found at path: {CHROMEDRIVER_PATH}")
 
-    options = webdriver.ChromeOptions()
-    options.binary_location = CHROME_PATH
-    options.add_argument("--headless")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-gpu")
+options = webdriver.ChromeOptions()  # ✅ Now correctly positioned
+options.binary_location = CHROME_PATH
+options.add_argument("--headless")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--disable-gpu")
 
     driver = webdriver.Chrome(service=Service(CHROMEDRIVER_PATH), options=options)
 
