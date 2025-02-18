@@ -14,19 +14,21 @@ chmod +x /opt/render/chrome/opt/google/chrome/google-chrome
 # Verify Chrome installation
 /opt/render/chrome/opt/google/chrome/google-chrome --version || echo "Chrome installation failed"
 
-# Install a specific version of Chromedriver for Linux
+# Ensure the directory exists
+mkdir -p /opt/render/chrome
+cd /opt/render/chrome
+
+# Install a specific version of Chromedriver
 CHROMEDRIVER_VERSION="114.0.5735.90"
 wget -q -O chromedriver.zip "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
 
-# Check if Chromedriver already exists before downloading
-if [ ! -f /opt/render/chrome/chromedriver ]; then
-    CHROMEDRIVER_VERSION="114.0.5735.90"
-    wget -q -O chromedriver.zip "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
-    unzip chromedriver.zip
+# Extract and move Chromedriver
+if [ -s chromedriver.zip ]; then
+    unzip -o chromedriver.zip
     mv chromedriver /opt/render/chrome/chromedriver
     chmod +x /opt/render/chrome/chromedriver
 else
-    echo "Chromedriver already installed, skipping download."
+    echo "Chromedriver download failed"
 fi
 
 # Verify Chromedriver installation
