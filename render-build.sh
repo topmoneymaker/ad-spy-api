@@ -1,4 +1,4 @@
-# Ensure directory exists
+# Create a persistent directory for Chrome & Chromedriver
 mkdir -p /opt/render/chrome
 cd /opt/render/chrome
 
@@ -6,10 +6,8 @@ cd /opt/render/chrome
 pip install --upgrade pip
 pip install -r /opt/render/project/src/requirements.txt
 
-# Download and install Google Chrome (correct method)
+# Download and install Google Chrome
 wget -q -O google-chrome-stable "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-
-# Extract and install Chrome
 dpkg -x google-chrome-stable /opt/render/chrome/
 chmod +x /opt/render/chrome/opt/google/chrome/google-chrome
 
@@ -31,3 +29,6 @@ fi
 
 # Verify Chromedriver installation
 /opt/render/chrome/chromedriver --version || echo "Chromedriver installation failed"
+
+# Ensure the directory persists
+echo "Keeping Chrome directory after deployment."
