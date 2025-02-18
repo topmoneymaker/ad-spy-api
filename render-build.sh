@@ -1,4 +1,4 @@
-# Ensure directory exists
+# Create a persistent directory for Chrome & Chromedriver
 mkdir -p /opt/render/chrome
 cd /opt/render/chrome
 
@@ -29,3 +29,6 @@ fi
 
 # Verify Chromedriver installation
 /opt/render/chrome/chromedriver --version || echo "Chromedriver installation failed"
+
+# Ensure the directory persists
+echo "Keeping Chrome directory after deployment."
