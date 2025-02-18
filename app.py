@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 # Ensure Chromedriver exists before running the script
 CHROME_PATH = "/opt/render/chrome/opt/google/chrome/google-chrome"
-CHROMEDRIVER_PATH = "/opt/render/chrome/chromedriver"
+CHROMEDRIVER_PATH = "/usr/bin/chromedriver"  # ✅ Use system-wide location
 
 if not os.path.exists(CHROMEDRIVER_PATH):
     raise FileNotFoundError(f"Chromedriver not found at path: {CHROMEDRIVER_PATH}")
