@@ -1,3 +1,4 @@
+cat <<EOL > render-build.sh
 #!/bin/bash
 set -e
 
@@ -13,3 +14,4 @@ apt-get install -y chromium-chromedriver
 # Verify Installation
 which chromedriver
 which google-chrome
+EOL
