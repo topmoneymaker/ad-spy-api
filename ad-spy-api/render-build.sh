@@ -1,17 +1,26 @@
-cat <<EOL > render-build.sh
 #!/bin/bash
 set -e
 
-# Ensure APT is available
-apt-get update -y
+# Create directory for Chrome & Chromedriver
+mkdir -p /opt/render/chrome
+cd /opt/render/chrome
 
-# Install Google Chrome
-apt-get install -y google-chrome-stable
+# Download Google Chrome
+wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+dpkg -x google-chrome-stable_current_amd64.deb /opt/render/chrome/
 
-# Install Chromedriver (automatically picks the correct version)
-apt-get install -y chromium-chromedriver
+# Set correct Chrome path
+export CHROME_PATH="/opt/render/chrome/opt/google/chrome/google-chrome"
 
-# Verify Installation
-which chromedriver
-which google-chrome
-EOL
+# Download Chromedriver
+CHROMEDRIVER_VERSION="114.0.5735.90"
+wget -q -O chromedriver.zip "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
+unzip -o chromedriver.zip
+mv chromedriver /opt/render/chrome/chromedriver
+chmod +x /opt/render/chrome/chromedriver
+
+# Set Chromedriver path
+export CHROMEDRIVER_PATH="/opt/render/chrome/chromedriver"
+
+# Verify installation
+/opt/render/chrome/chromedriver --version || echo "Chromedriver installation failed"
