@@ -11,7 +11,7 @@ def scrape_facebook_ads(keyword):
 
     # Paths for Chrome and Chromedriver
     CHROME_PATH = "/opt/render/chrome/opt/google/chrome/google-chrome"
-    CHROMEDRIVER_PATH = "/opt/render/chrome/chromedriver"
+    CHROMEDRIVER_PATH = "/usr/bin/chromedriver"  # Use the correct path
 
     # Ensure Chromedriver exists
     if not os.path.exists(CHROMEDRIVER_PATH):
