@@ -8,8 +8,8 @@ import time
 app = Flask(__name__)
 
 # Define paths
-CHROME_PATH = "/usr/bin/google-chrome"
-CHROMEDRIVER_PATH = "/usr/bin/chromedriver"
+CHROME_PATH = "/opt/render/chrome/opt/google/chrome/google-chrome"
+CHROMEDRIVER_PATH = "/opt/render/chrome/chromedriver"
 
 # Ensure Chromedriver exists before running
 if not os.path.exists(CHROMEDRIVER_PATH):
