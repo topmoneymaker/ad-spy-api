@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 # Ensure APT is available
 apt-get update -y
 
